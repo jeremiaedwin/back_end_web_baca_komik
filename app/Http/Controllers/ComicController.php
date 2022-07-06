@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Comic;
 use App\Models\Tag;
 
 class ComicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("login");
+    }
+
     public function index()
     {
         $comics = Comic::all();
@@ -68,5 +74,13 @@ class ComicController extends Controller
             $comic->tag()->attach($tag);
         }
         return response()->json('Row Updated!');
+    }
+
+    public function delete($id)
+    {
+        $comic = Comic::find($id);
+        $comic->tag()->detach();
+        $comic->delete();
+        return response()->json('Comic Delete!');
     }
 }

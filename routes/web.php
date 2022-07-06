@@ -40,3 +40,7 @@ $router->get('/comic/{id}', 'ComicController@show');
 $router->post('/comic', 'ComicController@store');
 $router->put('/comic/{id}', 'ComicController@update');
 $router->delete('/comic/{id}', 'ComicController@delete');
+
+$router->post("/register", "AuthController@register");
+$router->post("/login", "AuthController@login");
+// $router->get("/user", "UserController@index");
